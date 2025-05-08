@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { getQueryClient } from "@/app/get-query-client";
+import { dehydrate } from "@tanstack/react-query";
+import QueryProviderSsr from "./providers/queryProviderSsr";
+import Sidebar from "./components/sidebar";
+import { ThemeProviders } from "./providers/themeProvider";
+import MenuBar from "./components/menuBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,12 +28,34 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = getQueryClient();
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProviderSsr dehydratedState={dehydratedState}>
+          <ThemeProviders>
+            <div className="flex min-h-screen relative">
+              {/* Sidebar for md and up */}
+              <div className="hidden md:block fixed z-50 w-52 h-screen bg-pink-200 shadow-lg">
+                <Sidebar />
+              </div>
+
+              {/* MenuBar for mobile only */}
+              <div className="block md:hidden w-full fixed z-50 top-0">
+                <MenuBar />
+              </div>
+
+              {/* Main content area */}
+              <main className="flex-1 bg-pink-100 overflow-y-auto md:ml-52 pt-14 md:pt-0">
+                {children}
+              </main>
+            </div>
+          </ThemeProviders>
+        </QueryProviderSsr>
       </body>
     </html>
   );
