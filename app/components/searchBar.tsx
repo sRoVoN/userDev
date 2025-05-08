@@ -1,6 +1,5 @@
 "use client";
 import { useUsersQuery } from "@/hooks/useUsers";
-import { User } from "@/types/userType";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

@@ -1,4 +1,3 @@
-import { useSingleUserQuery } from "@/hooks/useSingleUser";
 import { User } from "@/types/userType";
 import { useRouter } from "next/navigation";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";

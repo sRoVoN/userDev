@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import React from 'react'
+
 
 export default function useToggleTheme() {
    const {theme, setTheme} = useTheme();

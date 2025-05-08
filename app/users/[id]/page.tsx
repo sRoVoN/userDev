@@ -1,7 +1,7 @@
 "use client";
 // app/users/[id]/page.tsx
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSingleUserQuery } from "@/hooks/useSingleUser";
 import DetailUserCard from "@/app/components/detailUserCard";
 import { useDeleteUser } from "@/hooks/useMutation";
